@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Items - Java Haven</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #8a5236;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #8a5236; /* Header color */
+            color: white;
+        }
+        tr {
+            background-color: #ffeaa2; /* Slight light brown color for table rows */
+        }
+        tr:nth-child(even) {
+            background-color: #ffefb7; /* Alternate slight lighter brown color for even rows */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Items</h1>
+        <table id="itemsTable">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Items will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchItems();
+        });
+
+        function fetchItems() {
+            fetch('http://localhost:8080/api/items')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#itemsTable tbody');
+                    tableBody.innerHTML = ''; // Clear existing content
+
+                    data.forEach((item, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.name}</td>
+                            <td>${item.price.toFixed(2)}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching items:', error));
+        }
+    </script>
+</body>
+</html>
