@@ -10,6 +10,7 @@ import com.cts.repository.EmployeeRepository;
 import com.cts.service.EmployeeService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -58,4 +59,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         employeeRepository.deleteById(id);
     }
+
+	@Override
+	public Optional<Employee> verifyPassword(String email, String rawPassword) {
+		Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
+		return employeeOptional.filter(employee -> encoder.matches(rawPassword, employee.getPassword()));
+	}
+
 }

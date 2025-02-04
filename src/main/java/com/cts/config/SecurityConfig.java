@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         request -> request.requestMatchers(HttpMethod.POST, "/api/customers/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll() // Allow login without authentication
+                                .requestMatchers(HttpMethod.POST, "/api/auth/admin/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/items/**").permitAll()
                                 .requestMatchers("/error").permitAll().anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
@@ -57,7 +58,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000"); // Replace with your frontend's origin
+        config.addAllowedOrigin("http://localhost:3000"); 
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

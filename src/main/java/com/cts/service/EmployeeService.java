@@ -1,6 +1,7 @@
 package com.cts.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cts.entities.Employee;
 
@@ -10,4 +11,5 @@ public interface EmployeeService {
     Employee getEmployeeById(Long id);
     Employee updateEmployee(Long id, Employee updatedEmployee);
     void deleteEmployee(Long id);
+    Optional<Employee> verifyPassword(String email, String rawPassword);
 }
