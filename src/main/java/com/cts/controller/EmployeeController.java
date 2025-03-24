@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
+@CrossOrigin(origins = {"http://localhost:3000", "https://yours-cafe-dine.netlify.app"})
 public class EmployeeController {
 
     @Autowired
